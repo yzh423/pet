@@ -1,0 +1,18 @@
+# Voice stack: voice_agent_car.py (install on top of requirements.txt)
+#
+# Fully local (Jetson Nano Python 3.6): vosk (STT) + espeak-ng (TTS) + Ollama (LLM via httpx to 127.0.0.1).
+# vosk is optional if you only use cloud STT.
+#
+# pip install -r requirements.txt -r requirements-voice.txt
+
+vosk>=0.3.42
+
+sounddevice>=0.4.4
+
+# httpx 0.23+ requires Python 3.7; Jetson Nano image Python 3.6.x needs 0.22.x
+httpx>=0.21.0,<0.23
+
+# Optional: ffmpeg (ffplay) to play MP3/WAV after synthesis.
+# Optional system package for offline TTS: espeak-ng (apt install espeak-ng).
+
+# Vosk model: https://alphacephei.com/vosk/models → vosk-model-small-en-us-0.15 or vosk-model-small-cn-0.22

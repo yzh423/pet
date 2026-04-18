@@ -1,0 +1,17 @@
+# shellcheck shell=bash
+
+echo ""
+echo "============================================================================="
+echo "Install script finished."
+echo "Optional Jetson performance (as needed):"
+echo "  sudo nvpmodel -m 0 && sudo jetson_clocks"
+echo "If import torch fails with a missing library, add to ~/.bashrc:"
+echo "  export LD_LIBRARY_PATH=/usr/lib/llvm-8/lib:\${LD_LIBRARY_PATH}"
+echo ""
+echo "Visual tracking example (display attached, model.pth in place):"
+echo "  source \"$VENV_DIR/bin/activate\""
+echo "  cd \"$REPO_ROOT\""
+echo "  export ROBOT_SERIAL_PORT=/dev/ttyUSB0"
+echo "  python3 jetson_follow_track.py --device 0 \\"
+echo "    --snapshot $PYSOT_ROOT/experiments/siamrpn_mobilev2_l234_dwxcorr/model.pth"
+echo "============================================================================="

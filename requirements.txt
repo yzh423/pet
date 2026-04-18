@@ -1,0 +1,6 @@
+numpy>=1.19.0
+opencv-python>=4.5.0
+pyserial>=3.5
+# Jetson Nano: install PyTorch from NVIDIA wheel, then build PySOT (bundled pysot-master/ — INSTALL.md; upstream https://github.com/STVIR/pysot).
+# Vision: USB 1080p webcam via jetson_follow_track.py (OpenCV V4L2 on Linux).
+# Voice: default vosk+espeak+Ollama (httpx); optional cloud STT/TTS — see requirements-voice.txt and voice_agent_car.py

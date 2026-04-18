@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# =============================================================================
+# Vision + voice interactive car stack (Jetson Nano + Arduino)
+#
+# This entry script sources numbered steps under install.d/ (05 clone → 15
+# paths → apt → venv → …). Edit fragments there. PySOT: bundled pysot-master/
+# is preferred over a sibling pysot/ clone.
+#
+# Usage (on Jetson Nano or Ubuntu, from the repository root):
+#   bash install-environment.txt
+#
+# Optional environment variables (export before running):
+#   SKIP_APT=1             Skip apt-get (when system packages are already installed)
+#   SKIP_PYTORCH_WHEEL=1   Skip NVIDIA PyTorch wheel (when torch is already installed)
+#   SKIP_VOICE=1           Skip requirements-voice.txt, ffmpeg, and Vosk model download
+#   SKIP_MODEL=1           Do not try to download PySOT model.pth (place manually per MODEL_ZOO.md)
+#   SKIP_PYSOT_CLONE=1     Do not git clone https://github.com/STVIR/pysot (you must have pysot/ or pysot-master/)
+#   SKIP_VOSK_MODEL=1      Do not download the small English Vosk model (default STT is vosk; use only if you will use --stt-mode cloud)
+#   VENV_DIR=~/venv-car    Virtualenv path (default ~/venv-car, same as JETSON_NANO_SETUP.md)
+#
+# Notes:
+#   - Serial: script runs usermod -aG dialout; log out and back in for group to apply.
+#   - Default PyTorch wheel targets JetPack 4.6.1 + Python 3.6 (cp36). If python3 differs,
+#     pick a matching wheel from https://developer.download.nvidia.com/compute/redist/jp/ ,
+#     install it manually, then rerun with SKIP_PYTORCH_WHEEL=1.
+#   - Windows: full vision/voice stack targets Linux/Jetson; WSL2 may install pip deps but
+#     CUDA/torch wheels differ from Jetson—do not treat this script as a full Windows substitute.
+# =============================================================================
+set -e
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+export REPO_ROOT
+
+for _install_fragment in "$REPO_ROOT/install.d/"[0-9][0-9]-*.sh; do
+  if [[ -f "$_install_fragment" ]]; then
+    # shellcheck disable=SC1090
+    source "$_install_fragment"
+  fi
+done
